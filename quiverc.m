@@ -147,18 +147,22 @@ if nin==7 % QUIVERC(X,Y,U,V,'equal',scaling,'colorbar') | 7
 end
 
 if nin==9 % QUIVERC(X,Y,U,V,'equal',scaling,'limits',[min max],'colorbar')
+    autoscale = false;
     plotColorbar = true;
     useCustomLimits = true;
     useEqualArrowLengths = true;
+    scaling = varargin{6};
     minLimit = varargin{8}(1);
     maxLimit = varargin{8}(2);
 end
 
 % Scalar expand u,v
+
 if prod(size(u))==1, u = u(ones(size(x))); end
 if prod(size(v))==1, v = v(ones(size(u))); end
 
-if autoscale,
+
+if (autoscale && ~useEqualArrowLengths && ~useCustomLimits)
     % Base autoscale value on average spacing in the x and y
     % directions.  Estimate number of points in each direction as
     % either the size of the input arrays or the effective square
@@ -230,7 +234,7 @@ if plotarrows,
         x+u-alpha*(u-beta*(v+eps));repmat(NaN,size(u))];
     hv = [y+v-alpha*(v-beta*(u+eps));y+v; ...
         y+v-alpha*(v+beta*(u+eps));repmat(NaN,size(v))];
-    vrn2= [vrn;vrn;vrn;vrn];bit
+    vrn2= [vrn;vrn;vrn;vrn];
     
     uui=hu(:);  vvi=hv(:);  vrn2=vrn2(:); imax=size(uui);
     
