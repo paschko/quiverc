@@ -223,7 +223,10 @@ end
 if plotColorbar
     hh=colorbar;
     % set colorbar scaling accordingly
-    caxis([0 max(vr)]);
+    %caxis([0 max(vr)]);
+    caxis([0 maxLimit])
+    % set colorbar text to white
+    hh.Color = 'white';
 end
 
 %----------------------------------------------
@@ -262,6 +265,6 @@ end
 if ~hold_state, hold off, view(2); set(ax,'NextPlot',next); end
 
 if nargout>0, hh = [h1;h2;h3]; end
-set(gca, 'color', [1 1 1],'Xcolor','w','Ycolor','w');
-set(gcf, 'color', [1 1 1]);
-%set(gcf, 'InvertHardCopy', 'off');
+set(gca, 'color', [0 0 0],'Xcolor','w','Ycolor','w');
+set(gcf, 'color', [0 0 0]);
+set(gcf, 'InvertHardCopy', 'off');
